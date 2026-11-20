@@ -61,25 +61,20 @@ section[id]{scroll-margin-top:68px}
 .ico-sm{width:15px;height:15px;flex-shrink:0;display:inline-block;vertical-align:middle}
 
 /* =========================================================
-   RESPONSIVE, CONTINUOUS NEURAL + AURORA BACKGROUND
+   CONTINUOUS GPU-LOCKED NEURAL MANIFOLD + AURORA BACKGROUND
    ========================================================= */
-
 .page-bg {
   position: fixed;
   inset: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
   z-index: 0;
   pointer-events: none;
   overflow: hidden;
-
-  /* Avoid transformed fixed-position containing blocks */
-  transform: none;
-  -webkit-transform: none;
-
-  /* Isolate background rendering */
   isolation: isolate;
-  contain: paint;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
 }
 
 .page-bg canvas {
@@ -89,6 +84,8 @@ section[id]{scroll-margin-top:68px}
   height: 100%;
   display: block;
   pointer-events: none;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
 }
 
 .aurora-orb {
@@ -106,11 +103,7 @@ section[id]{scroll-margin-top:68px}
   height: max(54vw, 300px);
   top: -12%;
   left: -10%;
-  background: radial-gradient(
-    circle,
-    var(--glow-known),
-    transparent 68%
-  );
+  background: radial-gradient(circle, var(--glow-known), transparent 68%);
   filter: blur(75px);
   -webkit-filter: blur(75px);
   animation: orbFloat1 22s ease-in-out infinite alternate;
@@ -121,11 +114,7 @@ section[id]{scroll-margin-top:68px}
   height: max(48vw, 280px);
   bottom: -15%;
   right: -8%;
-  background: radial-gradient(
-    circle,
-    var(--glow-teal),
-    transparent 68%
-  );
+  background: radial-gradient(circle, var(--glow-teal), transparent 68%);
   filter: blur(75px);
   -webkit-filter: blur(75px);
   animation: orbFloat2 26s ease-in-out infinite alternate;
@@ -136,41 +125,25 @@ section[id]{scroll-margin-top:68px}
   height: max(34vw, 220px);
   top: 38%;
   left: 45%;
-  background: radial-gradient(
-    circle,
-    var(--glow-pred),
-    transparent 70%
-  );
+  background: radial-gradient(circle, var(--glow-pred), transparent 70%);
   filter: blur(75px);
   -webkit-filter: blur(75px);
   animation: orbFloat3 19s ease-in-out infinite alternate;
 }
 
 @keyframes orbFloat1 {
-  0% {
-    transform: translate3d(0,0,0) scale(1);
-  }
-  100% {
-    transform: translate3d(6%,5%,0) scale(1.12);
-  }
+  0% { transform: translate3d(0,0,0) scale(1); }
+  100% { transform: translate3d(6%,5%,0) scale(1.12); }
 }
 
 @keyframes orbFloat2 {
-  0% {
-    transform: translate3d(0,0,0) scale(1);
-  }
-  100% {
-    transform: translate3d(-7%,-6%,0) scale(1.1);
-  }
+  0% { transform: translate3d(0,0,0) scale(1); }
+  100% { transform: translate3d(-7%,-6%,0) scale(1.1); }
 }
 
 @keyframes orbFloat3 {
-  0% {
-    transform: translate3d(-10%,0,0) scale(.95);
-  }
-  100% {
-    transform: translate3d(12%,-8%,0) scale(1.08);
-  }
+  0% { transform: translate3d(-10%,0,0) scale(.95); }
+  100% { transform: translate3d(12%,-8%,0) scale(1.08); }
 }
 
 .page-vignette {
@@ -180,8 +153,8 @@ section[id]{scroll-margin-top:68px}
   background: radial-gradient(
     circle at 65% 32%,
     transparent 0%,
-    color-mix(in srgb,var(--bg) 52%,transparent) 65%,
-    color-mix(in srgb,var(--bg) 84%,transparent) 100%
+    color-mix(in srgb,var(--bg) 50%,transparent) 65%,
+    color-mix(in srgb,var(--bg) 82%,transparent) 100%
   );
 }
 
@@ -190,20 +163,11 @@ main, footer {
   z-index: 1;
 }
 
-/* Mobile rendering optimization */
 @media (max-width: 820px) {
   .aurora-orb {
-    filter: blur(48px);
-    -webkit-filter: blur(48px);
+    filter: blur(44px);
+    -webkit-filter: blur(44px);
     opacity: .55;
-  }
-}
-
-/* Keep the existing desktop appearance */
-@media (min-width: 821px) {
-  .aurora-orb {
-    filter: blur(75px);
-    -webkit-filter: blur(75px);
   }
 }
 
@@ -256,7 +220,7 @@ html.js-anim [data-reveal="rise"]:not(.is-in){
 .mob-drawer a:last-child{border-bottom:0}
 
 /* =========================================================
-2. KINETIC HERO & CV TELEMETRY HUD
+   KINETIC HERO & CV TELEMETRY HUD
    ========================================================= */
 .hero{position:relative;padding-block:clamp(34px,6.5vw,92px) clamp(38px,5.5vw,76px)}
 .hero-in{position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,1fr) minmax(240px,305px);gap:clamp(28px,4.5vw,48px);align-items:center}
@@ -274,7 +238,6 @@ html.js-anim [data-reveal="rise"]:not(.is-in){
 .kicker .dot{width:8px;height:8px;flex-shrink:0;border-radius:50%;background:var(--teal);box-shadow:0 0 0 3px color-mix(in srgb,var(--teal) 25%,transparent);animation:pulseDot 2.2s infinite}
 @keyframes pulseDot{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.35);opacity:.6}}
 
-/* Character-by-character kinetic title */
 .namebox{position:relative;display:inline-block;margin:28px 0 0 8px;cursor:default;max-width:calc(100% - 16px)}
 h1{font-family:var(--display);font-weight:800;font-size:clamp(2.85rem,11.5vw,7.4rem);line-height:.92;letter-spacing:-.035em;color:var(--ink)}
 h1 .word{display:block;overflow:hidden;padding-bottom:.06em;margin-bottom:-.06em;white-space:nowrap}
@@ -294,7 +257,6 @@ h1 .char:hover,h1 .char:active{transform:translateY(-7px) scale(1.06) rotate(-3d
 
 .lede{margin-top:30px;max-width:46ch;font-size:clamp(1.06rem,2.1vw,1.38rem);line-height:1.48;font-weight:500;color:var(--ink)}
 
-/* Magnetic Buttons & Liquid-Fill Social Pills */
 .cta{margin-top:26px;display:flex;flex-wrap:wrap;align-items:center;gap:12px}
 .btn{position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:.76rem 1.35rem;min-height:44px;border-radius:999px;border:1.5px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer;font-family:var(--text);font-weight:600;font-size:.95rem;text-decoration:none;transition:transform .28s var(--ease-spring),background .25s,color .25s,border-color .25s,box-shadow .25s;will-change:transform}
 .btn.sm{padding:.52rem 1.05rem;min-height:38px;font-size:.86rem}
@@ -306,7 +268,6 @@ h1 .char:hover,h1 .char:active{transform:translateY(-7px) scale(1.06) rotate(-3d
 .btn.sec{background:color-mix(in srgb,var(--surface) 86%,transparent);border-color:var(--line)}
 .btn.sec:hover{border-color:var(--ink);background:var(--surface)}
 
-/* Fluid Borderless Social Links */
 .social-strip{display:inline-flex;flex-wrap:wrap;align-items:center;gap:8px}
 .spill{position:relative;display:inline-flex;align-items:center;gap:8px;padding:9px 16px;min-height:42px;border-radius:999px;text-decoration:none;font-weight:600;font-size:.92rem;color:var(--muted);background:color-mix(in srgb,var(--surface) 74%,transparent);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);transition:color .25s ease,background .25s ease,transform .35s var(--ease-elastic),padding .3s var(--ease-spring);will-change:transform}
 .spill svg{transition:transform .35s var(--ease-elastic),color .25s ease}
@@ -387,7 +348,7 @@ h2{font-family:var(--display);font-weight:800;font-size:clamp(1.85rem,4.6vw,3.1r
 h3{font-family:var(--display);font-weight:700;letter-spacing:-.015em;line-height:1.2;color:var(--ink)}
 
 /* =========================================================
-3. RESEARCH SECTION: 3D TILT + LASER SWEEP + SIGNAL PACKETS
+   RESEARCH SECTION: 3D TILT + LASER SWEEP + SIGNAL PACKETS
    ========================================================= */
 .research{margin-top:32px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;align-items:start}
 @media (max-width:960px){.research{grid-template-columns:minmax(0,1fr)}}
@@ -414,7 +375,6 @@ h3{font-family:var(--display);font-weight:700;letter-spacing:-.015em;line-height
 .fig{width:100%;height:auto;display:block}
 figcaption{margin-top:8px;font-size:.82rem;color:var(--muted)}
 
-/* RF-DETR SVG Laser & Target Lock-On Animations */
 .cbody{fill:var(--body-fill)} .corr{stroke:var(--muted);stroke-opacity:.35;stroke-width:2;fill:none}
 .rail{fill:var(--muted);fill-opacity:.5} .dmg{fill:var(--pred);fill-opacity:.38} .hole{fill:var(--ink)}
 .bxr{fill:none;stroke:var(--pred);stroke-width:2} .lblbg{fill:var(--ink)}
@@ -426,7 +386,6 @@ figcaption{margin-top:8px;font-size:.82rem;color:var(--muted)}
 .bx.ping{transform:scale(1.09)}
 .bx.ping .bxr{stroke-width:3;filter:drop-shadow(0 0 6px var(--pred))}
 
-/* KGAT Signal Packet Animations */
 .nd{fill:var(--known)} .nt{fill:var(--ink)} .ne{fill:var(--teal)}
 .ek{stroke:var(--known);stroke-opacity:.42;fill:none;stroke-linecap:round}
 .pl{stroke:var(--pred);stroke-width:2.2;stroke-dasharray:6 6;fill:none;animation:dash 1.2s linear infinite}
@@ -474,7 +433,7 @@ html.js-anim .metrics:not(.bars-live) .bar i{width:0}
 .td-box ul{display:grid;gap:5px}
 
 /* =========================================================
-4. PROJECTS: SPOTLIGHT BEAM & KINETIC ROW MORPHING
+   PROJECTS: SPOTLIGHT BEAM & KINETIC ROW MORPHING
    ========================================================= */
 .filters{margin-top:26px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .fchip{display:inline-flex;align-items:center;gap:6px;font:600 .88rem var(--text);padding:.52rem 1rem;min-height:40px;border-radius:999px;border:1px solid var(--line);background:color-mix(in srgb,var(--surface) 86%,transparent);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);color:var(--ink);cursor:pointer;transition:background .25s,color .25s,border-color .25s,transform .3s var(--ease-elastic)}
@@ -503,7 +462,7 @@ html.js-anim .metrics:not(.bars-live) .bar i{width:0}
 }
 
 /* =========================================================
-5. BACKGROUND: SCROLL-DRIVEN PROGRESSIVE TIMELINE LASER
+   BACKGROUND: SCROLL-DRIVEN PROGRESSIVE TIMELINE LASER
    ========================================================= */
 .cols{margin-top:36px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:40px}
 .col-head{display:flex;align-items:center;gap:10px;margin-bottom:22px;color:var(--ink)}
@@ -525,7 +484,7 @@ html.js-anim .metrics:not(.bars-live) .bar i{width:0}
 @media (max-width:820px){.cols{grid-template-columns:minmax(0,1fr);gap:34px}}
 
 /* =========================================================
-6. 3D PERSPECTIVE COVERFLOW CERTIFICATE CAROUSEL
+   3D PERSPECTIVE COVERFLOW CERTIFICATE CAROUSEL
    ========================================================= */
 .recog-head{margin-top:46px;padding-top:30px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .recog-title{display:flex;align-items:center;gap:10px;color:var(--ink)}
@@ -562,7 +521,7 @@ html.js-anim .metrics:not(.bars-live) .bar i{width:0}
 .lb-bar strong{font-family:var(--display);font-size:.96rem;color:var(--ink)}
 
 /* =========================================================
-7. SKILLS: INTERACTIVE CONSTELLATION CASCADE
+   SKILLS: INTERACTIVE CONSTELLATION CASCADE
    ========================================================= */
 .skills{margin-top:30px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr));gap:18px}
 .scard{position:relative;overflow:hidden;padding:20px;border-radius:18px;background:color-mix(in srgb,var(--surface) 88%,transparent);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1px solid var(--line);transition:border-color .3s,transform .4s var(--ease-elastic),background .3s,box-shadow .3s}
@@ -577,7 +536,7 @@ html.js-anim .metrics:not(.bars-live) .bar i{width:0}
 .tags li:hover,.tags li:active{background:var(--ink)!important;color:var(--bg)!important;border-color:var(--ink)!important;transform:translateY(-4px) scale(1.05)!important;transition-delay:0ms!important}
 
 /* =========================================================
-8. CONTACT: SHIMMER EMAIL & PARTICLE BURST
+   CONTACT: SHIMMER EMAIL & PARTICLE BURST
    ========================================================= */
 .contact p{margin-top:14px;max-width:56ch;color:var(--muted)}
 .mail{margin-top:24px;display:flex;flex-wrap:wrap;align-items:center;gap:12px 14px}
@@ -591,30 +550,23 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
 .toast{position:fixed;right:18px;bottom:max(18px,env(safe-area-inset-bottom,18px));z-index:50;padding:10px 16px;border-radius:999px;background:var(--ink);color:var(--bg);font:500 .82rem var(--mono);box-shadow:var(--shadow);opacity:0;transform:translateY(12px) scale(.92);pointer-events:none;transition:opacity .25s,transform .35s var(--ease-elastic)}
 .toast.show{opacity:1;transform:translateY(0) scale(1)}
 
-/* Confetti spark on copy */
 .spark{position:fixed;width:6px;height:6px;border-radius:50%;pointer-events:none;z-index:99;animation:sparkFly .65s cubic-bezier(.16,1,.3,1) forwards}
 @keyframes sparkFly{0%{opacity:1;transform:translate3d(0,0,0) scale(1)}100%{opacity:0;transform:translate3d(var(--dx),var(--dy),0) scale(0)}}
 
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
+  html { scroll-behavior: auto; }
   *, *::before, *::after {
     animation: none !important;
     transition: none !important;
   }
-
   [data-reveal] {
     opacity: 1 !important;
     transform: none !important;
   }
-
   h1 .char {
     opacity: 1 !important;
     transform: none !important;
   }
-
   #email {
     color: var(--ink);
     background: none;
@@ -627,7 +579,7 @@ try{var th=localStorage.getItem('mt-theme');if(th==='dark'||th==='light')documen
 </head>
 <body>
 
-<!-- 3D Perspective Neural Helix & Aurora Backdrop -->
+<!-- Continuous GPU-Accelerated 3D Perspective Neural Helix & Aurora Backdrop -->
 <div class="page-bg" aria-hidden="true">
   <div class="aurora-orb orb-1"></div>
   <div class="aurora-orb orb-2"></div>
@@ -709,7 +661,7 @@ try{var th=localStorage.getItem('mt-theme');if(th==='dark'||th==='light')documen
         <span class="hud-item"><i class="hud-c"></i>Drug</span>
         <span class="hud-item"><i class="hud-s"></i>Target</span>
         <span class="hud-item"><i class="hud-t"></i>Reaction</span>
-        <span class="hud-item"><i class="hud-l"></i>Tap or move across background to pulse ADR predictions</span>
+        <span class="hud-item"><i class="hud-l"></i>Tap or move across screen to pulse ADR predictions</span>
       </div>
     </div>
 
@@ -805,7 +757,6 @@ try{var th=localStorage.getItem('mt-theme');if(th==='dark'||th==='light')documen
             <ellipse class="dmg" cx="95" cy="98" rx="22" ry="16"/>
             <path class="dmg" d="M190 70q10-12 26-6t14 16q-4 14-20 14t-22-10q-2-8 2-14z"/>
             <circle class="hole" cx="290" cy="118" r="9"/>
-            <!-- Continuous RF-DETR Laser Inspection Beam -->
             <rect class="laser-glow" x="14" y="28" width="20" height="134"/>
             <line class="laser-beam" x1="24" y1="26" x2="24" y2="164"/>
             <g class="bx" id="bxDent"><rect class="bxr" x="65" y="74" width="60" height="48"/><rect class="lblbg" x="65" y="60" width="52" height="14"/><text class="lbl" x="69" y="70">dent .96</text></g>
@@ -872,7 +823,6 @@ try{var th=localStorage.getItem('mt-theme');if(th==='dark'||th==='light')documen
             <line class="ek" x1="180" y1="92" x2="310" y2="56" style="stroke-width:1.1"/>
             <line class="ek" x1="180" y1="92" x2="310" y2="134" style="stroke-width:2.6"/>
             <line class="ek" x1="180" y1="152" x2="310" y2="134" style="stroke-width:1.5"/>
-            <!-- Traveling neural attention packets -->
             <circle class="sig-pkt p1" cx="50" cy="42" r="3.2"/>
             <circle class="sig-pkt p2" cx="50" cy="96" r="3.5"/>
             <circle class="sig-pkt p3" cx="50" cy="150" r="3.2"/>
@@ -1227,7 +1177,6 @@ try{var th=localStorage.getItem('mt-theme');if(th==='dark'||th==='light')documen
       <span id="cstat" aria-live="polite"></span>
     </div>
 
-    <!-- Borderless Fluid Social Pills -->
     <div class="links" aria-label="Social links">
       <a class="spill li magnetic" href="https://www.linkedin.com/in/monim-tazwar-ba08512b6/" target="_blank" rel="noopener">
         <svg class="ico-sm" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3V9zm7 0h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.5c0-1.31-.02-3-1.83-3-1.83 0-2.11 1.43-2.11 2.9V21h-4V9z"/></svg>
@@ -1383,7 +1332,7 @@ try{var th=localStorage.getItem('mt-theme');if(th==='dark'||th==='light')documen
     });
   }
 
-  /* ---------- Universal Spotlight & 3D Tilt on Research Cards (Desktop + Mobile/Tablet) ---------- */
+  /* ---------- Universal Spotlight & 3D Tilt on Research Cards ---------- */
   document.querySelectorAll('.spotlight-card').forEach(function(card){
     var resetTimer=0;
     function applyCardTilt(clientX,clientY){
@@ -1411,7 +1360,7 @@ try{var th=localStorage.getItem('mt-theme');if(th==='dark'||th==='light')documen
     card.addEventListener('pointerleave',resetCardTilt);
   });
 
-  /* ---------- Gyroscopic 3D Portrait Tilt + Specular Glare (Mouse, Touch & Device Orientation) ---------- */
+  /* ---------- Gyroscopic 3D Portrait Tilt + Specular Glare ---------- */
   var pBox=document.getElementById('portraitBox'),pTilt=document.getElementById('portraitTilt');
   var glare=pBox?pBox.querySelector('.ph-glare'):null,hudCoords=document.getElementById('hudCoords');
   if(pBox&&pTilt&&!reduce.matches){
@@ -1446,7 +1395,6 @@ try{var th=localStorage.getItem('mt-theme');if(th==='dark'||th==='light')documen
     });
     pBox.addEventListener('pointerleave',resetPortraitTilt);
 
-    /* Subtle mobile gyroscope parallax when tilting phone/tablet */
     window.addEventListener('deviceorientation',function(ev){
       if(ev.gamma===null||ev.beta===null)return;
       var gx=Math.max(-25,Math.min(25,ev.gamma))/50 + 0.5;
@@ -1457,7 +1405,7 @@ try{var th=localStorage.getItem('mt-theme');if(th==='dark'||th==='light')documen
     },{passive:true});
   }
 
-  /* ---------- Fallback for portrait if image missing in standalone preview ---------- */
+  /* ---------- Fallback for portrait if image missing ---------- */
   var img=document.getElementById('heroPhoto'),fb=document.getElementById('photoFallback');
   if(img){
     img.addEventListener('error',function(){img.hidden=true;if(fb)fb.hidden=false;});
@@ -1475,20 +1423,32 @@ try{var th=localStorage.getItem('mt-theme');if(th==='dark'||th==='light')documen
   });
 
   /* =========================================================
-     3D PERSPECTIVE HETEROGENEOUS NEURAL MANIFOLD CANVAS
+     UNSTOPPABLE 3D PERSPECTIVE HETEROGENEOUS NEURAL MANIFOLD
      ========================================================= */
-  var cv=document.getElementById('graph'),ctx=cv.getContext('2d');
-  var W=0,H=0,lastW=0,nodes=[],edges=[],edgeSet=new Set(),pulses=[],shockwaves=[],cols={},running=false,raf=0;
+  var cv=document.getElementById('graph'),ctx=cv.getContext('2d',{alpha:true});
+  var W=0,H=0,lastW=0,nodes=[],edges=[],edgeSet=new Set(),pulses=[],shockwaves=[],cols={};
+  var raf=0,lastFrameTime=0;
   var probe={x:0,y:0,last:-1e9};
 
   function readCols(){
     var s=getComputedStyle(root);
-    ['known','pred','teal','ink','muted','bg'].forEach(function(k){cols[k]=s.getPropertyValue('--'+k).trim();});
+    ['known','pred','teal','ink','muted','bg'].forEach(function(k){
+      cols[k]=s.getPropertyValue('--'+k).trim();
+    });
   }
-  function mulberry(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+
+  function mulberry(a){
+    return function(){
+      a|=0;a=a+0x6D2B79F5|0;
+      var t=Math.imul(a^a>>>15,1|a);
+      t=t+Math.imul(t^t>>>7,61|t)^t;
+      return((t^t>>>14)>>>0)/4294967296;
+    };
+  }
 
   function build(){
-    var rnd=mulberry(19),n=Math.max(36,Math.min(105,Math.round(W*H/12500)));
+    var rnd=mulberry(19);
+    var n=Math.max(40,Math.min(108,Math.round(W*H/12000)));
     nodes=[];edges=[];edgeSet=new Set();pulses=[];
     for(var i=0;i<n;i++){
       var r=rnd();
@@ -1499,7 +1459,7 @@ try{var th=localStorage.getItem('mt-theme');if(th==='dark'||th==='light')documen
         by:(rnd()*2-1)*0.95,
         bz:Math.sin(angle)*radius,
         phase:rnd()*6.28,
-        spd:0.0004+rnd()*0.0005,
+        spd:0.00045+rnd()*0.0005,
         t:r<.44?0:(r<.72?1:2),
         sx:0,sy:0,scale:1,depth:0,k:0
       });
@@ -1520,11 +1480,11 @@ try{var th=localStorage.getItem('mt-theme');if(th==='dark'||th==='light')documen
         }
       });
     });
-    for(var p=0;p<Math.min(26,edges.length);p++){
+    for(var p=0;p<Math.min(28,edges.length);p++){
       pulses.push({
         eIdx:Math.floor(rnd()*edges.length),
         prog:rnd(),
-        spd:0.0025+rnd()*0.0035,
+        spd:0.0028+rnd()*0.0035,
         dir:rnd()>.5?1:-1
       });
     }
@@ -1533,17 +1493,18 @@ try{var th=localStorage.getItem('mt-theme');if(th==='dark'||th==='light')documen
   function resize(force){
     var newW=window.innerWidth;
     var newH=Math.max(window.innerHeight,document.documentElement.clientHeight);
-    if(!force && newW===lastW && Math.abs(newH-H)<140)return;
+    /* Ignore minor mobile URL-bar height shifts so taps/scrolls never reset the graph */
+    if(!force && newW===lastW && Math.abs(newH-H)<180)return;
     lastW=newW;
-    var isMobile = window.matchMedia('(max-width: 820px)').matches;
-    var dpr = Math.min(
-      window.devicePixelRatio || 1,
-      isMobile ? 1.5 : 2
-    );
+    var isMobile=window.matchMedia('(max-width: 820px)').matches;
+    var dpr=Math.min(window.devicePixelRatio||1, isMobile?1.5:2);
     W=newW;H=newH;
-    cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);
+    cv.width=Math.round(W*dpr);
+    cv.height=Math.round(H*dpr);
     ctx.setTransform(dpr,0,0,dpr,0,0);
-    build();
+    if(nodes.length===0 || force || Math.abs(newW-lastW)>40){
+      build();
+    }
     draw(performance.now());
   }
 
@@ -1564,8 +1525,8 @@ try{var th=localStorage.getItem('mt-theme');if(th==='dark'||th==='light')documen
     if(!W)return;
     ctx.clearRect(0,0,W,H);
     var i,e,n;
-    var rotY=t*0.00014;
-    var rotX=Math.sin(t*0.00009)*0.22;
+    var rotY=t*0.00015;
+    var rotX=Math.sin(t*0.0001)*0.22;
     var cosY=Math.cos(rotY),sinY=Math.sin(rotY);
     var cosX=Math.cos(rotX),sinX=Math.sin(rotX);
     var fov=720,cx=W*0.52,cy=H*0.5;
@@ -1590,7 +1551,7 @@ try{var th=localStorage.getItem('mt-theme');if(th==='dark'||th==='light')documen
       n.depth=Math.max(0.18,Math.min(1.15,sc));
     }
 
-    var live=!reduce.matches&&(performance.now()-probe.last)<3000,px,py;
+    var live=!reduce.matches&&(performance.now()-probe.last)<3200,px,py;
     if(reduce.matches){px=W*.72;py=H*.45;}
     else if(live){px=probe.x;py=probe.y;}
     else{px=W*(.54+.32*Math.sin(t*.00024));py=H*(.46+.30*Math.sin(t*.00033+1.2));}
@@ -1630,9 +1591,9 @@ try{var th=localStorage.getItem('mt-theme');if(th==='dark'||th==='light')documen
           var qx=pa.sx+(pb.sx-pa.sx)*p.prog;
           var qy=pa.sy+(pb.sy-pa.sy)*p.prog;
           var qd=(pa.depth+pb.depth)*0.5;
-          ctx.globalAlpha=0.72*qd;
+          ctx.globalAlpha=0.75*qd;
           ctx.fillStyle=cols.teal;
-          ctx.beginPath();ctx.arc(qx,qy,2.1*qd,0,6.2832);ctx.fill();
+          ctx.beginPath();ctx.arc(qx,qy,2.2*qd,0,6.2832);ctx.fill();
         }
       }
     }
@@ -1642,7 +1603,7 @@ try{var th=localStorage.getItem('mt-theme');if(th==='dark'||th==='light')documen
       var age=(t-sw.t0)/950;
       if(age>=1){shockwaves.splice(i,1);continue;}
       var rad=age*240;
-      ctx.globalAlpha=(1-age)*0.45;
+      ctx.globalAlpha=(1-age)*0.48;
       ctx.strokeStyle=cols.pred;
       ctx.lineWidth=2*(1-age);
       ctx.beginPath();ctx.arc(sw.x,sw.y,rad,0,6.2832);ctx.stroke();
@@ -1692,149 +1653,121 @@ try{var th=localStorage.getItem('mt-theme');if(th==='dark'||th==='light')documen
   }
 
   /* =========================================================
-     CROSS-BROWSER CONTINUOUS CANVAS ANIMATION CONTROLLER
+     SELF-HEALING CONTINUOUS ANIMATION LOOP (NEVER FREEZES)
      ========================================================= */
-
-  function loop(t) {
-    if (!running) return;
-
-    draw(t);
-
-    raf = requestAnimationFrame(loop);
-  }
-
-  function update() {
-    var shouldRun =
-      !document.hidden &&
-      !reduce.matches;
-
-    if (shouldRun && !running) {
-      running = true;
-
-      /* Draw immediately when animation resumes */
-      draw(performance.now());
-
-      raf = requestAnimationFrame(loop);
-    }
-
-    if (!shouldRun && running) {
-      running = false;
-
-      cancelAnimationFrame(raf);
+  function tickLoop(t) {
+    lastFrameTime = performance.now();
+    if (reduce.matches) {
       raf = 0;
+      draw(t);
+      return;
+    }
+    draw(t);
+    raf = requestAnimationFrame(tickLoop);
+  }
+
+  function ensureRunning() {
+    if (reduce.matches) {
+      if (raf) {
+        cancelAnimationFrame(raf);
+        raf = 0;
+      }
+      draw(performance.now());
+      return;
+    }
+    if (!raf) {
+      lastFrameTime = performance.now();
+      raf = requestAnimationFrame(tickLoop);
     }
   }
 
-  /* Mouse interaction */
-  window.addEventListener('pointermove', function(ev) {
-    if (ev.pointerType === 'touch') return;
-
-    probe.x = ev.clientX;
-    probe.y = ev.clientY;
-    probe.last = performance.now();
-  }, { passive: true });
-
-  /* Touch and mouse interaction */
-  window.addEventListener('pointerdown', function(ev) {
-    if (ev.pointerType !== 'touch') {
-      probe.x = ev.clientX;
-      probe.y = ev.clientY;
-      probe.last = performance.now();
+  /* Heartbeat watchdog: auto-recovers loop if any mobile browser throttles RAF after tap/gesture */
+  setInterval(function() {
+    if (reduce.matches || document.hidden) return;
+    if (!raf || (performance.now() - lastFrameTime) > 500) {
+      if (raf) cancelAnimationFrame(raf);
+      raf = 0;
+      ensureRunning();
     }
+  }, 600);
 
-    if (reduce.matches) return;
+  /* Unified Mouse & Touch Probe + Shockwave Interaction */
+  function activateProbe(x, y, spawnWave) {
+    probe.x = x;
+    probe.y = y;
+    probe.last = performance.now();
+    if (spawnWave && !reduce.matches) {
+      shockwaves.push({
+        x: x,
+        y: y,
+        t0: performance.now()
+      });
+      if (shockwaves.length > 6) shockwaves.shift();
+    }
+    ensureRunning();
+  }
 
-    shockwaves.push({
-      x: ev.clientX,
-      y: ev.clientY,
-      t0: performance.now()
-    });
+  window.addEventListener('pointermove', function(ev) {
+    activateProbe(ev.clientX, ev.clientY, false);
   }, { passive: true });
 
-  document.addEventListener('pointerleave', function() {
-    probe.last = -1e9;
+  window.addEventListener('pointerdown', function(ev) {
+    activateProbe(ev.clientX, ev.clientY, true);
+  }, { passive: true });
+
+  window.addEventListener('touchstart', function(ev) {
+    if (ev.touches && ev.touches[0]) {
+      activateProbe(ev.touches[0].clientX, ev.touches[0].clientY, true);
+    }
+  }, { passive: true });
+
+  document.addEventListener('visibilitychange', function() {
+    if (!document.hidden) ensureRunning();
   });
+  window.addEventListener('pageshow', ensureRunning);
+  window.addEventListener('focus', ensureRunning);
+  window.addEventListener('touchend', ensureRunning, { passive: true });
 
-  /* Pause only when the document is hidden or motion
-     reduction is explicitly requested. Never pause on scroll. */
-  document.addEventListener('visibilitychange', update);
-
-  /* Recover after returning to the browser */
-  window.addEventListener('pageshow', update);
-  window.addEventListener('focus', update);
-
-  /* Handle orientation and viewport changes */
   var resizeFrame = 0;
-
   function handleBackgroundResize() {
     cancelAnimationFrame(resizeFrame);
-
     resizeFrame = requestAnimationFrame(function() {
       resize(false);
-
-      if (!running) {
-        draw(performance.now());
-      }
+      ensureRunning();
     });
   }
 
-  window.addEventListener('resize', handleBackgroundResize, {
-    passive: true
-  });
-
+  window.addEventListener('resize', handleBackgroundResize, { passive: true });
   window.addEventListener('orientationchange', function() {
-    setTimeout(handleBackgroundResize, 150);
+    setTimeout(function() {
+      resize(true);
+      ensureRunning();
+    }, 180);
   }, { passive: true });
 
-  /* iOS Safari visual viewport changes */
-  if (window.visualViewport) {
-    window.visualViewport.addEventListener(
-      'resize',
-      handleBackgroundResize,
-      { passive: true }
-    );
-  }
-
-  /* Theme and system appearance changes */
   function recolor() {
     readCols();
-
-    if (!running) {
-      draw(performance.now());
-    }
+    draw(performance.now());
+    ensureRunning();
   }
 
   var darkQuery = matchMedia('(prefers-color-scheme: dark)');
-
   if (darkQuery.addEventListener) {
     darkQuery.addEventListener('change', recolor);
   } else {
     darkQuery.addListener(recolor);
   }
 
-  /* Accessibility: respect reduced-motion preferences */
   if (reduce.addEventListener) {
-    reduce.addEventListener('change', function() {
-      update();
-
-      if (!running) {
-        draw(performance.now());
-      }
-    });
+    reduce.addEventListener('change', ensureRunning);
   } else {
-    reduce.addListener(function() {
-      update();
-
-      if (!running) {
-        draw(performance.now());
-      }
-    });
+    reduce.addListener(ensureRunning);
   }
 
-  /* Initialize */
+  /* Initialize background immediately */
   readCols();
   resize(true);
-  update();
+  ensureRunning();
 
   /* ---------- Theme Toggle ---------- */
   function syncThemeIcon(){
@@ -1869,7 +1802,12 @@ try{var th=localStorage.getItem('mt-theme');if(th==='dark'||th==='light')documen
       prog.style.transform='scaleX('+(max>0?Math.min(1,window.scrollY/max):0)+')';
       var pos=window.scrollY+140,curId='';
       secs.forEach(function(s){if(s&&s.offsetTop<=pos)curId='#'+s.id;});
-      navLinks.forEach(function(a){a.classList.toggle('active',a.getAttribute('href')===curId);});
+      navLinks.forEach(function(a){
+        var active=a.getAttribute('href')===curId;
+        a.classList.toggle('active',active);
+        if(active)a.setAttribute('aria-current','page');
+        else a.removeAttribute('aria-current');
+      });
 
       var triggerY=window.innerHeight*0.74;
       timelines.forEach(function(tl){
@@ -1993,19 +1931,25 @@ try{var th=localStorage.getItem('mt-theme');if(th==='dark'||th==='light')documen
   });
   window.addEventListener('pointerup',function(){isDown=false;});
 
-  var lb=document.getElementById('certLightbox'),lbImg=document.getElementById('lbImg'),lbTitle=document.getElementById('lbTitle');
+  var lb=document.getElementById('certLightbox'),lbImg=document.getElementById('lbImg'),lbTitle=document.getElementById('lbTitle'),lbClose=document.getElementById('lbClose'),lastTrigger=null;
+  function closeLightbox(){
+    lb.hidden=true;
+    if(lastTrigger)lastTrigger.focus();
+  }
   document.querySelectorAll('.cimg-wrap[data-full]').forEach(function(box){
     box.addEventListener('click',function(){
       if(moved)return;
+      lastTrigger=box;
       lbImg.src=box.getAttribute('data-full');
       lbImg.alt=box.getAttribute('data-title');
       lbTitle.textContent=box.getAttribute('data-title');
       lb.hidden=false;
+      lbClose.focus();
     });
   });
-  document.getElementById('lbClose').addEventListener('click',function(){lb.hidden=true;});
-  lb.addEventListener('click',function(e){if(e.target===lb)lb.hidden=true;});
-  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!lb.hidden)lb.hidden=true;});
+  lbClose.addEventListener('click',closeLightbox);
+  lb.addEventListener('click',function(e){if(e.target===lb)closeLightbox();});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!lb.hidden)closeLightbox();});
 
   /* ---------- Particle Burst & Copy Helpers ---------- */
   function burstSparks(btn){
