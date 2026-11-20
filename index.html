@@ -63,7 +63,7 @@ section[id]{scroll-margin-top:68px}
 /* =========================================================
 1. 3D PERSPECTIVE NEURAL MANIFOLD & AURORA BACKDROP
    ========================================================= */
-.page-bg{position:fixed;inset:0;width:100%;height:100dvh;z-index:0;pointer-events:none;overflow:hidden;transform:translateZ(0)}
+.page-bg{position:fixed;top:0;left:0;width:100vw;height:100vh;height:100lvh;z-index:0;pointer-events:none;overflow:hidden;transform:translate3d(0,0,0);-webkit-transform:translate3d(0,0,0)}
 .page-bg canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
 .aurora-orb{position:absolute;border-radius:50%;filter:blur(75px);pointer-events:none;opacity:.58;will-change:transform;backface-visibility:hidden}
 .orb-1{width:max(54vw,300px);height:max(54vw,300px);top:-12%;left:-10%;background:radial-gradient(circle,var(--glow-known),transparent 68%);animation:orbFloat1 22s ease-in-out infinite alternate}
@@ -1329,7 +1329,7 @@ try{var th=localStorage.getItem('mt-theme');if(th==='dark'||th==='light')documen
      3D PERSPECTIVE HETEROGENEOUS NEURAL MANIFOLD CANVAS
      ========================================================= */
   var cv=document.getElementById('graph'),ctx=cv.getContext('2d');
-  var W=0,H=0,nodes=[],edges=[],edgeSet=new Set(),pulses=[],shockwaves=[],cols={},running=false,raf=0;
+  var W=0,H=0,lastW=0,nodes=[],edges=[],edgeSet=new Set(),pulses=[],shockwaves=[],cols={},running=false,raf=0;
   var probe={x:0,y:0,last:-1e9};
 
   function readCols(){
@@ -1381,9 +1381,13 @@ try{var th=localStorage.getItem('mt-theme');if(th==='dark'||th==='light')documen
     }
   }
 
-  function resize(){
+  function resize(force){
+    var newW=window.innerWidth;
+    var newH=Math.max(window.innerHeight,document.documentElement.clientHeight);
+    if(!force && newW===lastW && Math.abs(newH-H)<140)return;
+    lastW=newW;
     var dpr=Math.min(window.devicePixelRatio||1,2);
-    W=window.innerWidth;H=window.innerHeight;
+    W=newW;H=newH;
     cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);
     ctx.setTransform(dpr,0,0,dpr,0,0);
     build();
@@ -1540,19 +1544,24 @@ try{var th=localStorage.getItem('mt-theme');if(th==='dark'||th==='light')documen
     if(go&&!running){running=true;raf=requestAnimationFrame(loop);}
     else if(!go&&running){running=false;cancelAnimationFrame(raf);}
   }
-  window.addEventListener('pointermove',function(ev){probe.x=ev.clientX;probe.y=ev.clientY;probe.last=performance.now();},{passive:true});
-  window.addEventListener('pointerdown',function(ev){
+  window.addEventListener('pointermove',function(ev){
+    if(ev.pointerType==='touch')return;
     probe.x=ev.clientX;probe.y=ev.clientY;probe.last=performance.now();
+  },{passive:true});
+  window.addEventListener('pointerdown',function(ev){
+    if(ev.pointerType!=='touch'){
+      probe.x=ev.clientX;probe.y=ev.clientY;probe.last=performance.now();
+    }
     if(reduce.matches)return;
     shockwaves.push({x:ev.clientX,y:ev.clientY,t0:performance.now()});
   },{passive:true});
   document.addEventListener('pointerleave',function(){probe.last=-1e9;});
   document.addEventListener('visibilitychange',update);
-  var rz=0;window.addEventListener('resize',function(){cancelAnimationFrame(rz);rz=requestAnimationFrame(resize);},{passive:true});
+  var rz=0;window.addEventListener('resize',function(){cancelAnimationFrame(rz);rz=requestAnimationFrame(function(){resize(false);});},{passive:true});
   function recolor(){readCols();if(!running)draw(performance.now());}
   matchMedia('(prefers-color-scheme: dark)').addEventListener('change',recolor);
   reduce.addEventListener('change',function(){update();draw(performance.now());});
-  readCols();resize();update();
+  readCols();resize(true);update();
 
   /* ---------- Theme Toggle ---------- */
   function syncThemeIcon(){
